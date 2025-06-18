@@ -4,15 +4,14 @@ import json
 import os
 from datetime import date
 
-print("Iniciando a aplicação Flask...") # Adicione esta linha
-
+print("Iniciando a aplicação Flask...") 
 app = Flask(__name__)
 
-print(f"Flask app instanciado. app.root_path: {app.root_path}") # Adicione esta linha
+print(f"Flask app instanciado. app.root_path: {app.root_path}")
 
 @app.route('/')
 def index():
-    print("Rota '/' acessada.") # Adicione esta linha
+    print("Rota '/' acessada.") 
     verse_file_path = os.path.join(app.root_path, "daily_verse.json")
 
     daily_verse_data = {
@@ -27,7 +26,7 @@ def index():
                 if 'verse' in loaded_data and 'date' in loaded_data:
                     daily_verse_data['verse'] = loaded_data['verse']
                     try:
-                        date_obj = date.date.fromisoformat(loaded_data['date']) # Corrigido para date.date.fromisoformat
+                        date_obj = date.date.fromisoformat(loaded_data['date']) 
                         daily_verse_data['date'] = date_obj.strftime('%d/%m/%Y')
                     except ValueError:
                         daily_verse_data['date'] = loaded_data['date']
