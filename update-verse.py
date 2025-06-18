@@ -15,7 +15,7 @@ def get_daily_verse():
         # A API bible-api.com não tem um endpoint "versículo do dia" direto.
         # Vamos usar o endpoint de versículo aleatório para simplificar.
         # Se você encontrar uma API com "versículo do dia", adapte esta parte.
-        response = requests.get("https://bible-api.com/?random=verse")
+        response = requests.get("https://bible-api.com/?random=verse&translation=almeida")
         response.raise_for_status() # Lança exceção para erros HTTP
         data = response.json()
 
