@@ -1,8 +1,9 @@
 # app.py
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 import json
 import os
 from datetime import date
+import requests
 
 print("Iniciando a aplicação Flask...") 
 app = Flask(__name__)
@@ -45,6 +46,32 @@ def index():
 def about():
 
     return render_template('about.html')
+
+@app.route('/get_new_verse')
+def get_new_verse():
+    try:
+        # Chama a API da Bíblia diretamente (como no update_verse.py)
+        # Usei o mesmo parâmetro translation=almeida para português
+        response = requests.get("https://bible-api.com/?random=verse&translation=almeida")
+        response.raise_for_status() # Lança exceção para erros HTTP (4xx ou 5xx)
+        data = response.json()
+
+        verse_text = data.get('text', 'Versículo não encontrado.')
+        reference = data.get('reference', 'Referência desconhecida.')
+
+        # Retorna os dados como JSON para o JavaScript no frontend
+        return jsonify(text=verse_text, reference=reference)
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao buscar novo versículo: {e}")
+        return jsonify(text="Erro ao carregar versículo.", reference=""), 500 # Retorna erro HTTP 500
+    except json.JSONDecodeError:
+        print("Erro ao decodificar JSON da API.")
+        return jsonify(text="Erro na resposta da API.", reference=""), 500
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        return jsonify(text="Erro inesperado ao carregar versículo.", reference=""), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.environ.get("PORT", 5000))
