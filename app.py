@@ -41,5 +41,10 @@ def index():
 
     return render_template('index.html', verse=daily_verse_data['verse'], date=daily_verse_data['date'])
 
+@app.route('/about')
+def about():
+
+    return render_template('about.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=os.environ.get("PORT", 5000))
