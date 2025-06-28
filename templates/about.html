@@ -4,43 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Versículo do Dia</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #3c85e6;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-        .date {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 15px;
-        }
-    </style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: center;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color: #4CAF50;
+    }
+    .about-content {
+        margin-bottom: 20px;
+    }
+    .new-verse-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+    .new-verse-text {
+        font-size: 1.1em;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        font-style: italic;
+    }
+    .new-verse-reference {
+        font-size: 0.8em;
+        color: #777;
+    }
+    button {
+        padding: 10px 15px;
+        font-size: 1em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 </head>
 <body>
     {% include 'navbar.html' %} 
     <div class="container">
-        <h1>Sobre</h1>
-        <p>site</p>
-        <p>legal</p>
+        <h1>Sobre este Projeto</h1>
+        <div class="about-content">
+            <p>Este é um projeto simples para exibir um versículo bíblico diário.</p>
+            <p>O versículo principal na página inicial é atualizado automaticamente uma vez ao dia.</p>
+            <p>Você pode clicar no botão abaixo para puxar um novo versículo aleatório a qualquer momento!</p>
+        </div>
+
+        <div class="new-verse-section">
+            <h2>Puxe um Novo Versículo</h2>
+            <button id="fetchNewVerseButton">Puxar Novo Versículo</button>
+            <div id="newVerseDisplay" style="margin-top: 20px;">
+                <p class="new-verse-text">Clique no botão para ver um novo versículo.</p>
+                <p class="new-verse-reference"></p>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Este é o JavaScript que fará a requisição assíncrona
+        document.getElementById('fetchNewVerseButton').addEventListener('click', function() {
+            fetch('/get_new_verse') // Rota que o Flask irá fornecer
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('#newVerseDisplay .new-verse-text').textContent = data.text;
+                    document.querySelector('#newVerseDisplay .new-verse-reference').textContent = '- ' + data.reference;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar novo versículo:', error);
+                    document.querySelector('#newVerseDisplay .new-verse-text').textContent = 'Erro ao carregar versículo.';
+                    document.querySelector('#newVerseDisplay .new-verse-reference').textContent = '';
+                });
+        });
+    </script>
 </body>
 </html>
