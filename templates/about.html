@@ -42,21 +42,19 @@
         font-size: 0.8em;
         color: #777;
     }
-    #fetchNewVerseButton {
+    button {
         padding: 10px 15px;
-        font-size: 1em;
-        color: rgb(44, 44, 133);
+        font-size: 0.5em;
+        background-color: #007bff;
+        color: white;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        transition: color white 0.3s ease;
     }
-    #fetchNewVerseButton:hover {
+    button:hover {
         background-color: #0056b3;
     }
-
-
 </style>
 </head>
 <body>
@@ -71,7 +69,7 @@
 
         <div class="new-verse-section">
             <h2>Puxe um Novo Versículo</h2>
-            <a id="fetchNewVerseButton"><i class="fa-solid fa-plus"></i></a>
+            <button id="fetchNewVerseButton"><i class="fa-solid fa-plus"></i></button>
             <div id="newVerseDisplay" style="margin-top: 20px;">
                 <p class="new-verse-text">Clique no botão para ver um novo versículo.</p>
                 <p class="new-verse-reference"></p>
