@@ -3,37 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function() {
+            const currentTheme = localStorage.getItem('theme');
+            let themeToApply = 'light'; // Padrão
+            
+            if (currentTheme) {
+                themeToApply = currentTheme;
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeToApply = 'dark'; // Usa a preferência do sistema se não houver no localStorage
+            }
+
+            document.documentElement.setAttribute('data-theme', themeToApply);
+
+            // Tenta encontrar o botão da navbar imediatamente e define seu texto/ícone
+            // Isso é importante para evitar o "flash" do texto incorreto
+            const themeToggleButton = document.getElementById('themeToggleButton');
+            if (themeToggleButton) {
+                if (themeToApply === 'dark') {
+                    themeToggleButton.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                } else {
+                    themeToggleButton.innerHTML = '<i class="fas fa-moon"></i> Modo Noturno';
+                }
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="static/index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Versículo do Dia</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #3c85e6;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-        .date {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 15px;
-        }
-    </style>
 </head>
 <body>
     {% include 'navbar.html' %} 
