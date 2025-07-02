@@ -26,21 +26,8 @@
         </div>
     </div>
 
-    <script>
-        // Este é o JavaScript que fará a requisição assíncrona
-        document.getElementById('fetchNewVerseButton').addEventListener('click', function() {
-            fetch('/get_new_verse') // Rota que o Flask irá fornecer
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector('#newVerseDisplay .new-verse-text').textContent = data.text;
-                    document.querySelector('#newVerseDisplay .new-verse-reference').textContent = '- ' + data.reference;
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar novo versículo:', error);
-                    document.querySelector('#newVerseDisplay .new-verse-text').textContent = 'Erro ao carregar versículo.';
-                    document.querySelector('#newVerseDisplay .new-verse-reference').textContent = '';
-                });
-        });
-    </script>
+    <script src="{{ url_for('static', filename='about_verse.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigF/h/68S5q/P2IuC" crossorigin="anonymous"></script>
+
 </body>
 </html>
