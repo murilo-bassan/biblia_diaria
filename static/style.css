@@ -1,0 +1,66 @@
+/* Cores padrão (modo claro) */
+:root {
+    --bg-color: #f4f4f4;
+    --card-bg-color: #fff;
+    --text-color: #333;
+    --heading-color: #004888;
+    --border-color: #eee;
+    --link-color: #007bff;
+}
+
+/* Cores para o modo noturno */
+html[data-theme='dark'] {
+    --bg-color: #2c2c2c;
+    --card-bg-color: #3a3a3a;
+    --text-color: #e0e0e0;
+    --heading-color: #4988bf; 
+    --border-color: #555;
+    --link-color: #7abaff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    background-color: var(--card-bg-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+h1, h2 {
+    color: var(--heading-color);
+    transition: color 0.3s ease;
+}
+
+.verse-reference, .new-verse-reference, .favorite-verse-reference, .search-result-reference {
+    color: var(--text-color); /* Ajusta a cor para o modo noturno */
+}
+
+a {
+    color: var(--link-color);
+}
+
+.new-verse-section, .favorite-verse-item, .search-result {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--card-bg-color); /* Pode querer um tom diferente aqui */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Navbar Bootstrap (ajustes de cores) */
+.navbar.bg-light {
+    background-color: var(--card-bg-color) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+.navbar-brand, .nav-link {
+    color: var(--heading-color) !important; /* Ou uma cor neutra */
+}
+.navbar-toggler-icon {
+    filter: invert(var(--text-color-invert, 0)); /* Inverte a cor do ícone no modo noturno */
+}
+
+html[data-theme='dark'] .navbar-toggler-icon {
+    --text-color-invert: 1; /* Inverte o ícone para branco no modo noturno */
+}
